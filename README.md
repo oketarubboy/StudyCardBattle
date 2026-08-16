@@ -1,4 +1,4 @@
-# まなびカードバトル v0.2.0
+# まなびカードバトル v0.2.1
 
 PhantomCardBattle v0.1.62をベースに、5教科（こくご・さんすう・りか・しゃかい・えいご）の学習カードゲームへ置き換えた開発版です。
 
@@ -18,3 +18,9 @@ PhantomCardBattle v0.1.62をベースに、5教科（こくご・さんすう・
 
 ## Firebase
 `firebase-config.js` は元PCBの設定を引き継いでいます。Realtime Databaseのルールが `manabi_card_battle_v1` 配下への読み書きを許可していることを確認してください。
+
+
+## v0.2.1 修正
+- GitHub Pagesでタイトルボタンが反応しないケースへの対策として、実行JSを `manabi-app.js` 1本に統合しました。
+- Service WorkerをHTML/JS/CSSネットワーク優先に変更しました。
+- ZIPで文字化けしやすい日本語JSON/MDファイル名を英数字名へ変更しました。

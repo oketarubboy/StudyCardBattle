@@ -1,0 +1,1312 @@
+{
+  "version": "1.0",
+  "rules": {
+    "npc_uses_hirameki_skill": false,
+    "adult_mode_uses_same_decks": true,
+    "adult_mode_card_boost": {
+      "rarity_1": "ランダムな1辺を+1",
+      "rarity_2": "重複しないランダムな2辺をそれぞれ+1",
+      "rarity_3": "重複しないランダムな3辺をそれぞれ+1",
+      "rarity_4": "9未満の辺からランダム1辺を9に変更",
+      "rarity_5": "A未満の辺からランダム1辺をAに変更",
+      "max_value": "A"
+    },
+    "deck_patterns": {
+      "よわい": {
+        "rarity_1": 4,
+        "rarity_2": 1
+      },
+      "ふつう": {
+        "rarity_1_to_2": 4,
+        "rarity_3": 1
+      },
+      "つよい": {
+        "rarity_3": 4,
+        "rarity_4": 1
+      },
+      "学びマスター": {
+        "rarity_3": 2,
+        "rarity_4": 2,
+        "rarity_5": 1
+      }
+    }
+  },
+  "opponents": [
+    {
+      "id": "kokugo_weak",
+      "name": "こくご好き",
+      "difficulty": "よわい",
+      "subject": "こくご",
+      "challenge_cost_mp": 0,
+      "victory_reward_mp": 1000,
+      "uses_hirameki_skill": false,
+      "first_win_reward": {
+        "type": "fixed_card",
+        "card_no": 4,
+        "name": "くじらぐも",
+        "subject": "こくご",
+        "rarity": 1
+      },
+      "deck": [
+        {
+          "card_no": 4,
+          "name": "くじらぐも",
+          "subject": "こくご",
+          "rarity": 1,
+          "stats": {
+            "up": 2,
+            "right": 2,
+            "down": 4,
+            "left": 6
+          }
+        },
+        {
+          "card_no": 1,
+          "name": "はなのみち",
+          "subject": "こくご",
+          "rarity": 1,
+          "stats": {
+            "up": 2,
+            "right": 1,
+            "down": 3,
+            "left": 7
+          }
+        },
+        {
+          "card_no": 2,
+          "name": "おおきなかぶ",
+          "subject": "こくご",
+          "rarity": 1,
+          "stats": {
+            "up": 5,
+            "right": 4,
+            "down": 1,
+            "left": 4
+          }
+        },
+        {
+          "card_no": 5,
+          "name": "サラダでげんき",
+          "subject": "こくご",
+          "rarity": 1,
+          "stats": {
+            "up": 4,
+            "right": 7,
+            "down": 1,
+            "left": 1
+          }
+        },
+        {
+          "card_no": 8,
+          "name": "スイミー",
+          "subject": "こくご",
+          "rarity": 2,
+          "stats": {
+            "up": 3,
+            "right": 6,
+            "down": 5,
+            "left": 4
+          }
+        }
+      ]
+    },
+    {
+      "id": "sansuu_weak",
+      "name": "さんすう好き",
+      "difficulty": "よわい",
+      "subject": "さんすう",
+      "challenge_cost_mp": 0,
+      "victory_reward_mp": 1000,
+      "uses_hirameki_skill": false,
+      "first_win_reward": {
+        "type": "fixed_card",
+        "card_no": 51,
+        "name": "たし算",
+        "subject": "さんすう",
+        "rarity": 1
+      },
+      "deck": [
+        {
+          "card_no": 51,
+          "name": "たし算",
+          "subject": "さんすう",
+          "rarity": 1,
+          "stats": {
+            "up": 3,
+            "right": 5,
+            "down": 3,
+            "left": 3
+          }
+        },
+        {
+          "card_no": 52,
+          "name": "ひき算",
+          "subject": "さんすう",
+          "rarity": 1,
+          "stats": {
+            "up": 5,
+            "right": 1,
+            "down": 6,
+            "left": 1
+          }
+        },
+        {
+          "card_no": 54,
+          "name": "とけい",
+          "subject": "さんすう",
+          "rarity": 1,
+          "stats": {
+            "up": 3,
+            "right": 2,
+            "down": 1,
+            "left": 6
+          }
+        },
+        {
+          "card_no": 55,
+          "name": "かたちあそび",
+          "subject": "さんすう",
+          "rarity": 1,
+          "stats": {
+            "up": 2,
+            "right": 2,
+            "down": 7,
+            "left": 2
+          }
+        },
+        {
+          "card_no": 57,
+          "name": "九九",
+          "subject": "さんすう",
+          "rarity": 2,
+          "stats": {
+            "up": 7,
+            "right": 6,
+            "down": 2,
+            "left": 4
+          }
+        }
+      ]
+    },
+    {
+      "id": "rika_weak",
+      "name": "りか好き",
+      "difficulty": "よわい",
+      "subject": "りか",
+      "challenge_cost_mp": 0,
+      "victory_reward_mp": 1000,
+      "uses_hirameki_skill": false,
+      "first_win_reward": {
+        "type": "fixed_card",
+        "card_no": 102,
+        "name": "アサガオ",
+        "subject": "りか",
+        "rarity": 1
+      },
+      "deck": [
+        {
+          "card_no": 102,
+          "name": "アサガオ",
+          "subject": "りか",
+          "rarity": 1,
+          "stats": {
+            "up": 3,
+            "right": 3,
+            "down": 3,
+            "left": 4
+          }
+        },
+        {
+          "card_no": 101,
+          "name": "タンポポ",
+          "subject": "りか",
+          "rarity": 1,
+          "stats": {
+            "up": 6,
+            "right": 3,
+            "down": 1,
+            "left": 3
+          }
+        },
+        {
+          "card_no": 104,
+          "name": "メダカ",
+          "subject": "りか",
+          "rarity": 1,
+          "stats": {
+            "up": 4,
+            "right": 5,
+            "down": 3,
+            "left": 3
+          }
+        },
+        {
+          "card_no": 105,
+          "name": "水星",
+          "subject": "りか",
+          "rarity": 1,
+          "stats": {
+            "up": 1,
+            "right": 4,
+            "down": 7,
+            "left": 1
+          }
+        },
+        {
+          "card_no": 108,
+          "name": "モンシロチョウ",
+          "subject": "りか",
+          "rarity": 2,
+          "stats": {
+            "up": 6,
+            "right": 4,
+            "down": 4,
+            "left": 4
+          }
+        }
+      ]
+    },
+    {
+      "id": "shakai_weak",
+      "name": "しゃかい好き",
+      "difficulty": "よわい",
+      "subject": "しゃかい",
+      "challenge_cost_mp": 0,
+      "victory_reward_mp": 1000,
+      "uses_hirameki_skill": false,
+      "first_win_reward": {
+        "type": "fixed_card",
+        "card_no": 152,
+        "name": "法隆寺",
+        "subject": "しゃかい",
+        "rarity": 1
+      },
+      "deck": [
+        {
+          "card_no": 152,
+          "name": "法隆寺",
+          "subject": "しゃかい",
+          "rarity": 1,
+          "stats": {
+            "up": 4,
+            "right": 2,
+            "down": 5,
+            "left": 3
+          }
+        },
+        {
+          "card_no": 151,
+          "name": "三内丸山遺跡",
+          "subject": "しゃかい",
+          "rarity": 1,
+          "stats": {
+            "up": 2,
+            "right": 7,
+            "down": 2,
+            "left": 2
+          }
+        },
+        {
+          "card_no": 153,
+          "name": "鎌倉の大仏",
+          "subject": "しゃかい",
+          "rarity": 1,
+          "stats": {
+            "up": 2,
+            "right": 4,
+            "down": 3,
+            "left": 5
+          }
+        },
+        {
+          "card_no": 155,
+          "name": "野口英世",
+          "subject": "しゃかい",
+          "rarity": 1,
+          "stats": {
+            "up": 2,
+            "right": 4,
+            "down": 5,
+            "left": 4
+          }
+        },
+        {
+          "card_no": 156,
+          "name": "卑弥呼",
+          "subject": "しゃかい",
+          "rarity": 2,
+          "stats": {
+            "up": 6,
+            "right": 4,
+            "down": 2,
+            "left": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": "eigo_weak",
+      "name": "えいご好き",
+      "difficulty": "よわい",
+      "subject": "えいご",
+      "challenge_cost_mp": 0,
+      "victory_reward_mp": 1000,
+      "uses_hirameki_skill": false,
+      "first_win_reward": {
+        "type": "fixed_card",
+        "card_no": 201,
+        "name": "Cat",
+        "subject": "えいご",
+        "rarity": 1
+      },
+      "deck": [
+        {
+          "card_no": 201,
+          "name": "Cat",
+          "subject": "えいご",
+          "rarity": 1,
+          "stats": {
+            "up": 4,
+            "right": 3,
+            "down": 3,
+            "left": 3
+          }
+        },
+        {
+          "card_no": 202,
+          "name": "Apple",
+          "subject": "えいご",
+          "rarity": 1,
+          "stats": {
+            "up": 1,
+            "right": 1,
+            "down": 7,
+            "left": 4
+          }
+        },
+        {
+          "card_no": 204,
+          "name": "Pencil",
+          "subject": "えいご",
+          "rarity": 1,
+          "stats": {
+            "up": 4,
+            "right": 4,
+            "down": 3,
+            "left": 4
+          }
+        },
+        {
+          "card_no": 205,
+          "name": "Smile",
+          "subject": "えいご",
+          "rarity": 1,
+          "stats": {
+            "up": 5,
+            "right": 5,
+            "down": 2,
+            "left": 2
+          }
+        },
+        {
+          "card_no": 206,
+          "name": "Dog",
+          "subject": "えいご",
+          "rarity": 2,
+          "stats": {
+            "up": 1,
+            "right": 7,
+            "down": 1,
+            "left": 7
+          }
+        }
+      ]
+    },
+    {
+      "id": "kokugo_normal",
+      "name": "こくご名人",
+      "difficulty": "ふつう",
+      "subject": "こくご",
+      "challenge_cost_mp": 1000,
+      "victory_reward_mp": 4000,
+      "uses_hirameki_skill": false,
+      "first_win_reward": {
+        "type": "fixed_card",
+        "card_no": 8,
+        "name": "スイミー",
+        "subject": "こくご",
+        "rarity": 2
+      },
+      "deck": [
+        {
+          "card_no": 4,
+          "name": "くじらぐも",
+          "subject": "こくご",
+          "rarity": 1,
+          "stats": {
+            "up": 2,
+            "right": 2,
+            "down": 4,
+            "left": 6
+          }
+        },
+        {
+          "card_no": 8,
+          "name": "スイミー",
+          "subject": "こくご",
+          "rarity": 2,
+          "stats": {
+            "up": 3,
+            "right": 6,
+            "down": 5,
+            "left": 4
+          }
+        },
+        {
+          "card_no": 9,
+          "name": "お手紙",
+          "subject": "こくご",
+          "rarity": 2,
+          "stats": {
+            "up": 4,
+            "right": 3,
+            "down": 6,
+            "left": 6
+          }
+        },
+        {
+          "card_no": 12,
+          "name": "名前を見てちょうだい",
+          "subject": "こくご",
+          "rarity": 2,
+          "stats": {
+            "up": 5,
+            "right": 7,
+            "down": 4,
+            "left": 4
+          }
+        },
+        {
+          "card_no": 23,
+          "name": "ごんぎつね",
+          "subject": "こくご",
+          "rarity": 3,
+          "stats": {
+            "up": 6,
+            "right": 6,
+            "down": 4,
+            "left": 8
+          }
+        }
+      ]
+    },
+    {
+      "id": "sansuu_normal",
+      "name": "さんすう名人",
+      "difficulty": "ふつう",
+      "subject": "さんすう",
+      "challenge_cost_mp": 1000,
+      "victory_reward_mp": 4000,
+      "uses_hirameki_skill": false,
+      "first_win_reward": {
+        "type": "fixed_card",
+        "card_no": 57,
+        "name": "九九",
+        "subject": "さんすう",
+        "rarity": 2
+      },
+      "deck": [
+        {
+          "card_no": 51,
+          "name": "たし算",
+          "subject": "さんすう",
+          "rarity": 1,
+          "stats": {
+            "up": 3,
+            "right": 5,
+            "down": 3,
+            "left": 3
+          }
+        },
+        {
+          "card_no": 56,
+          "name": "かけ算",
+          "subject": "さんすう",
+          "rarity": 2,
+          "stats": {
+            "up": 5,
+            "right": 7,
+            "down": 4,
+            "left": 3
+          }
+        },
+        {
+          "card_no": 57,
+          "name": "九九",
+          "subject": "さんすう",
+          "rarity": 2,
+          "stats": {
+            "up": 7,
+            "right": 6,
+            "down": 2,
+            "left": 4
+          }
+        },
+        {
+          "card_no": 63,
+          "name": "三角形",
+          "subject": "さんすう",
+          "rarity": 2,
+          "stats": {
+            "up": 6,
+            "right": 6,
+            "down": 3,
+            "left": 4
+          }
+        },
+        {
+          "card_no": 71,
+          "name": "分数",
+          "subject": "さんすう",
+          "rarity": 3,
+          "stats": {
+            "up": 6,
+            "right": 4,
+            "down": 7,
+            "left": 5
+          }
+        }
+      ]
+    },
+    {
+      "id": "rika_normal",
+      "name": "りか名人",
+      "difficulty": "ふつう",
+      "subject": "りか",
+      "challenge_cost_mp": 1000,
+      "victory_reward_mp": 4000,
+      "uses_hirameki_skill": false,
+      "first_win_reward": {
+        "type": "fixed_card",
+        "card_no": 108,
+        "name": "モンシロチョウ",
+        "subject": "りか",
+        "rarity": 2
+      },
+      "deck": [
+        {
+          "card_no": 102,
+          "name": "アサガオ",
+          "subject": "りか",
+          "rarity": 1,
+          "stats": {
+            "up": 3,
+            "right": 3,
+            "down": 3,
+            "left": 4
+          }
+        },
+        {
+          "card_no": 106,
+          "name": "ヒマワリ",
+          "subject": "りか",
+          "rarity": 2,
+          "stats": {
+            "up": 4,
+            "right": 3,
+            "down": 7,
+            "left": 3
+          }
+        },
+        {
+          "card_no": 108,
+          "name": "モンシロチョウ",
+          "subject": "りか",
+          "rarity": 2,
+          "stats": {
+            "up": 6,
+            "right": 4,
+            "down": 4,
+            "left": 4
+          }
+        },
+        {
+          "card_no": 115,
+          "name": "月",
+          "subject": "りか",
+          "rarity": 2,
+          "stats": {
+            "up": 6,
+            "right": 7,
+            "down": 2,
+            "left": 3
+          }
+        },
+        {
+          "card_no": 129,
+          "name": "地球",
+          "subject": "りか",
+          "rarity": 3,
+          "stats": {
+            "up": 8,
+            "right": 2,
+            "down": 3,
+            "left": 8
+          }
+        }
+      ]
+    },
+    {
+      "id": "shakai_normal",
+      "name": "しゃかい名人",
+      "difficulty": "ふつう",
+      "subject": "しゃかい",
+      "challenge_cost_mp": 1000,
+      "victory_reward_mp": 4000,
+      "uses_hirameki_skill": false,
+      "first_win_reward": {
+        "type": "fixed_card",
+        "card_no": 156,
+        "name": "卑弥呼",
+        "subject": "しゃかい",
+        "rarity": 2
+      },
+      "deck": [
+        {
+          "card_no": 152,
+          "name": "法隆寺",
+          "subject": "しゃかい",
+          "rarity": 1,
+          "stats": {
+            "up": 4,
+            "right": 2,
+            "down": 5,
+            "left": 3
+          }
+        },
+        {
+          "card_no": 156,
+          "name": "卑弥呼",
+          "subject": "しゃかい",
+          "rarity": 2,
+          "stats": {
+            "up": 6,
+            "right": 4,
+            "down": 2,
+            "left": 6
+          }
+        },
+        {
+          "card_no": 159,
+          "name": "北条政子",
+          "subject": "しゃかい",
+          "rarity": 2,
+          "stats": {
+            "up": 4,
+            "right": 7,
+            "down": 4,
+            "left": 4
+          }
+        },
+        {
+          "card_no": 162,
+          "name": "金閣",
+          "subject": "しゃかい",
+          "rarity": 2,
+          "stats": {
+            "up": 2,
+            "right": 6,
+            "down": 4,
+            "left": 7
+          }
+        },
+        {
+          "card_no": 174,
+          "name": "坂本龍馬",
+          "subject": "しゃかい",
+          "rarity": 3,
+          "stats": {
+            "up": 8,
+            "right": 7,
+            "down": 1,
+            "left": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": "eigo_normal",
+      "name": "えいご名人",
+      "difficulty": "ふつう",
+      "subject": "えいご",
+      "challenge_cost_mp": 1000,
+      "victory_reward_mp": 4000,
+      "uses_hirameki_skill": false,
+      "first_win_reward": {
+        "type": "fixed_card",
+        "card_no": 206,
+        "name": "Dog",
+        "subject": "えいご",
+        "rarity": 2
+      },
+      "deck": [
+        {
+          "card_no": 201,
+          "name": "Cat",
+          "subject": "えいご",
+          "rarity": 1,
+          "stats": {
+            "up": 4,
+            "right": 3,
+            "down": 3,
+            "left": 3
+          }
+        },
+        {
+          "card_no": 206,
+          "name": "Dog",
+          "subject": "えいご",
+          "rarity": 2,
+          "stats": {
+            "up": 1,
+            "right": 7,
+            "down": 1,
+            "left": 7
+          }
+        },
+        {
+          "card_no": 207,
+          "name": "Rabbit",
+          "subject": "えいご",
+          "rarity": 2,
+          "stats": {
+            "up": 5,
+            "right": 4,
+            "down": 4,
+            "left": 7
+          }
+        },
+        {
+          "card_no": 209,
+          "name": "Bird",
+          "subject": "えいご",
+          "rarity": 2,
+          "stats": {
+            "up": 2,
+            "right": 7,
+            "down": 2,
+            "left": 7
+          }
+        },
+        {
+          "card_no": 217,
+          "name": "Dolphin",
+          "subject": "えいご",
+          "rarity": 3,
+          "stats": {
+            "up": 7,
+            "right": 6,
+            "down": 6,
+            "left": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": "kokugo_strong",
+      "name": "こくご博士",
+      "difficulty": "つよい",
+      "subject": "こくご",
+      "challenge_cost_mp": 3000,
+      "victory_reward_mp": 12000,
+      "uses_hirameki_skill": false,
+      "first_win_reward": {
+        "type": "fixed_card",
+        "card_no": 23,
+        "name": "ごんぎつね",
+        "subject": "こくご",
+        "rarity": 3
+      },
+      "deck": [
+        {
+          "card_no": 23,
+          "name": "ごんぎつね",
+          "subject": "こくご",
+          "rarity": 3,
+          "stats": {
+            "up": 6,
+            "right": 6,
+            "down": 4,
+            "left": 8
+          }
+        },
+        {
+          "card_no": 25,
+          "name": "一つの花",
+          "subject": "こくご",
+          "rarity": 3,
+          "stats": {
+            "up": 3,
+            "right": 7,
+            "down": 8,
+            "left": 2
+          }
+        },
+        {
+          "card_no": 31,
+          "name": "大造じいさんとガン",
+          "subject": "こくご",
+          "rarity": 3,
+          "stats": {
+            "up": 1,
+            "right": 8,
+            "down": 3,
+            "left": 8
+          }
+        },
+        {
+          "card_no": 32,
+          "name": "注文の多い料理店",
+          "subject": "こくご",
+          "rarity": 3,
+          "stats": {
+            "up": 8,
+            "right": 6,
+            "down": 7,
+            "left": 1
+          }
+        },
+        {
+          "card_no": 38,
+          "name": "やまなし",
+          "subject": "こくご",
+          "rarity": 4,
+          "stats": {
+            "up": 5,
+            "right": 9,
+            "down": 5,
+            "left": 8
+          }
+        }
+      ]
+    },
+    {
+      "id": "sansuu_strong",
+      "name": "さんすう博士",
+      "difficulty": "つよい",
+      "subject": "さんすう",
+      "challenge_cost_mp": 3000,
+      "victory_reward_mp": 12000,
+      "uses_hirameki_skill": false,
+      "first_win_reward": {
+        "type": "fixed_card",
+        "card_no": 71,
+        "name": "分数",
+        "subject": "さんすう",
+        "rarity": 3
+      },
+      "deck": [
+        {
+          "card_no": 66,
+          "name": "わり算",
+          "subject": "さんすう",
+          "rarity": 3,
+          "stats": {
+            "up": 8,
+            "right": 3,
+            "down": 2,
+            "left": 8
+          }
+        },
+        {
+          "card_no": 71,
+          "name": "分数",
+          "subject": "さんすう",
+          "rarity": 3,
+          "stats": {
+            "up": 6,
+            "right": 4,
+            "down": 7,
+            "left": 5
+          }
+        },
+        {
+          "card_no": 79,
+          "name": "面積",
+          "subject": "さんすう",
+          "rarity": 3,
+          "stats": {
+            "up": 8,
+            "right": 6,
+            "down": 4,
+            "left": 6
+          }
+        },
+        {
+          "card_no": 85,
+          "name": "直方体と立方体",
+          "subject": "さんすう",
+          "rarity": 3,
+          "stats": {
+            "up": 4,
+            "right": 7,
+            "down": 8,
+            "left": 2
+          }
+        },
+        {
+          "card_no": 88,
+          "name": "割合",
+          "subject": "さんすう",
+          "rarity": 4,
+          "stats": {
+            "up": 2,
+            "right": 7,
+            "down": 7,
+            "left": 8
+          }
+        }
+      ]
+    },
+    {
+      "id": "rika_strong",
+      "name": "りか博士",
+      "difficulty": "つよい",
+      "subject": "りか",
+      "challenge_cost_mp": 3000,
+      "victory_reward_mp": 12000,
+      "uses_hirameki_skill": false,
+      "first_win_reward": {
+        "type": "fixed_card",
+        "card_no": 129,
+        "name": "地球",
+        "subject": "りか",
+        "rarity": 3
+      },
+      "deck": [
+        {
+          "card_no": 121,
+          "name": "オオカマキリ",
+          "subject": "りか",
+          "rarity": 3,
+          "stats": {
+            "up": 8,
+            "right": 4,
+            "down": 8,
+            "left": 2
+          }
+        },
+        {
+          "card_no": 126,
+          "name": "フナ",
+          "subject": "りか",
+          "rarity": 3,
+          "stats": {
+            "up": 7,
+            "right": 8,
+            "down": 4,
+            "left": 2
+          }
+        },
+        {
+          "card_no": 129,
+          "name": "地球",
+          "subject": "りか",
+          "rarity": 3,
+          "stats": {
+            "up": 8,
+            "right": 2,
+            "down": 3,
+            "left": 8
+          }
+        },
+        {
+          "card_no": 132,
+          "name": "北極星",
+          "subject": "りか",
+          "rarity": 3,
+          "stats": {
+            "up": 7,
+            "right": 6,
+            "down": 8,
+            "left": 1
+          }
+        },
+        {
+          "card_no": 136,
+          "name": "カブトムシ",
+          "subject": "りか",
+          "rarity": 4,
+          "stats": {
+            "up": 8,
+            "right": 8,
+            "down": 5,
+            "left": 5
+          }
+        }
+      ]
+    },
+    {
+      "id": "shakai_strong",
+      "name": "しゃかい博士",
+      "difficulty": "つよい",
+      "subject": "しゃかい",
+      "challenge_cost_mp": 3000,
+      "victory_reward_mp": 12000,
+      "uses_hirameki_skill": false,
+      "first_win_reward": {
+        "type": "fixed_card",
+        "card_no": 174,
+        "name": "坂本龍馬",
+        "subject": "しゃかい",
+        "rarity": 3
+      },
+      "deck": [
+        {
+          "card_no": 168,
+          "name": "源頼朝",
+          "subject": "しゃかい",
+          "rarity": 3,
+          "stats": {
+            "up": 8,
+            "right": 5,
+            "down": 5,
+            "left": 5
+          }
+        },
+        {
+          "card_no": 172,
+          "name": "武田信玄",
+          "subject": "しゃかい",
+          "rarity": 3,
+          "stats": {
+            "up": 3,
+            "right": 7,
+            "down": 5,
+            "left": 7
+          }
+        },
+        {
+          "card_no": 174,
+          "name": "坂本龍馬",
+          "subject": "しゃかい",
+          "rarity": 3,
+          "stats": {
+            "up": 8,
+            "right": 7,
+            "down": 1,
+            "left": 6
+          }
+        },
+        {
+          "card_no": 185,
+          "name": "大政奉還",
+          "subject": "しゃかい",
+          "rarity": 3,
+          "stats": {
+            "up": 8,
+            "right": 8,
+            "down": 3,
+            "left": 1
+          }
+        },
+        {
+          "card_no": 195,
+          "name": "明治維新",
+          "subject": "しゃかい",
+          "rarity": 4,
+          "stats": {
+            "up": 7,
+            "right": 8,
+            "down": 9,
+            "left": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "eigo_strong",
+      "name": "えいご博士",
+      "difficulty": "つよい",
+      "subject": "えいご",
+      "challenge_cost_mp": 3000,
+      "victory_reward_mp": 12000,
+      "uses_hirameki_skill": false,
+      "first_win_reward": {
+        "type": "fixed_card",
+        "card_no": 217,
+        "name": "Dolphin",
+        "subject": "えいご",
+        "rarity": 3
+      },
+      "deck": [
+        {
+          "card_no": 217,
+          "name": "Dolphin",
+          "subject": "えいご",
+          "rarity": 3,
+          "stats": {
+            "up": 7,
+            "right": 6,
+            "down": 6,
+            "left": 6
+          }
+        },
+        {
+          "card_no": 228,
+          "name": "Rainbow",
+          "subject": "えいご",
+          "rarity": 3,
+          "stats": {
+            "up": 5,
+            "right": 7,
+            "down": 5,
+            "left": 6
+          }
+        },
+        {
+          "card_no": 229,
+          "name": "Train",
+          "subject": "えいご",
+          "rarity": 3,
+          "stats": {
+            "up": 8,
+            "right": 4,
+            "down": 5,
+            "left": 4
+          }
+        },
+        {
+          "card_no": 235,
+          "name": "Brave",
+          "subject": "えいご",
+          "rarity": 3,
+          "stats": {
+            "up": 7,
+            "right": 7,
+            "down": 7,
+            "left": 1
+          }
+        },
+        {
+          "card_no": 236,
+          "name": "Lion",
+          "subject": "えいご",
+          "rarity": 4,
+          "stats": {
+            "up": 9,
+            "right": 3,
+            "down": 6,
+            "left": 8
+          }
+        }
+      ]
+    },
+    {
+      "id": "learning_master",
+      "name": "学びマスター",
+      "difficulty": "学びマスター",
+      "subject": "混合",
+      "challenge_cost_mp": 10000,
+      "victory_reward_mp": 40000,
+      "uses_hirameki_skill": false,
+      "first_win_reward": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "card_no": 38,
+            "name": "やまなし",
+            "subject": "こくご",
+            "rarity": 4
+          },
+          {
+            "card_no": 88,
+            "name": "割合",
+            "subject": "さんすう",
+            "rarity": 4
+          },
+          {
+            "card_no": 136,
+            "name": "カブトムシ",
+            "subject": "りか",
+            "rarity": 4
+          },
+          {
+            "card_no": 195,
+            "name": "明治維新",
+            "subject": "しゃかい",
+            "rarity": 4
+          },
+          {
+            "card_no": 236,
+            "name": "Lion",
+            "subject": "えいご",
+            "rarity": 4
+          }
+        ]
+      },
+      "deck": [
+        {
+          "card_no": 46,
+          "name": "こころ",
+          "subject": "こくご",
+          "rarity": 5,
+          "stats": {
+            "up": 4,
+            "right": 8,
+            "down": "A",
+            "left": 6
+          }
+        },
+        {
+          "card_no": 94,
+          "name": "円の面積",
+          "subject": "さんすう",
+          "rarity": 4,
+          "stats": {
+            "up": 8,
+            "right": 6,
+            "down": 8,
+            "left": 6
+          }
+        },
+        {
+          "card_no": 145,
+          "name": "トリケラトプス",
+          "subject": "りか",
+          "rarity": 4,
+          "stats": {
+            "up": 5,
+            "right": 1,
+            "down": 9,
+            "left": 9
+          }
+        },
+        {
+          "card_no": 185,
+          "name": "大政奉還",
+          "subject": "しゃかい",
+          "rarity": 3,
+          "stats": {
+            "up": 8,
+            "right": 8,
+            "down": 3,
+            "left": 1
+          }
+        },
+        {
+          "card_no": 233,
+          "name": "Jump",
+          "subject": "えいご",
+          "rarity": 3,
+          "stats": {
+            "up": 8,
+            "right": 4,
+            "down": 1,
+            "left": 8
+          }
+        }
+      ]
+    }
+  ]
+}

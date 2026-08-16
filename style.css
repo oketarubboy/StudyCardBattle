@@ -2984,3 +2984,16 @@ body.is-battle-screen .battle-screen {
 .subject-art-icon{font-size:clamp(1.6rem,5vw,3.2rem);line-height:1}.subject-art-name{font-size:.72rem;line-height:1.2;max-width:95%;word-break:break-word;background:rgba(255,255,255,.78);padding:.18rem .35rem;border-radius:.35rem}
 .collection-bonus-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:.75rem;margin-bottom:1.2rem}.collection-bonus-card{border:1px solid #495069;border-radius:12px;padding:.75rem;background:#171a2d}.collection-bonus-card.complete{border-color:#f2c94c;box-shadow:0 0 0 1px rgba(242,201,76,.25)}.collection-bonus-card p{margin:.4rem 0;color:#cfd4e8}.collection-bonus-card small{color:#9aa3bd}.collection-bonus-card.complete small{color:#f2c94c;font-weight:700}
 body .npc-card .badge.shura, body .danger-mode-button{background:linear-gradient(135deg,#ef7d32,#b43a22)!important;color:#fff!important}.shura-card{filter:saturate(1.15) contrast(1.06);box-shadow:0 0 18px rgba(255,117,40,.7)!important}
+
+
+/* v0.2.1 startup diagnostics */
+.startup-error {
+  margin-top: 18px;
+  padding: 12px 14px;
+  border: 1px solid rgba(255, 100, 100, .55);
+  border-radius: 12px;
+  background: rgba(120, 20, 20, .22);
+  color: #ffd7d7;
+  font-size: 14px;
+  line-height: 1.55;
+}
