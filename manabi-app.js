@@ -7540,7 +7540,7 @@ const COLLECTIONS = [
   }
 ];
 
-const VERSION = "0.2.2";
+const VERSION = "0.2.4";
 const SAVE_KEY = "manabi_card_battle_save_v1";
 const FIREBASE_ROOT = "manabi_card_battle_v1";
 
@@ -7721,9 +7721,6 @@ const RULES = [
   { id: "type_descend", name: "教科パワーダウン", short: "場に同じ属性カードが2枚以上ある時、その属性の場のカードだけが-補正されます。1未満にはなりません。" },
   { id: "mirror", name: "ミラー", short: "場に出した瞬間、カードの上下・左右の数字が入れ替わります。" },
   { id: "wild_card", name: "ワイルドカード", short: "対戦開始時に、各プレイヤーの手札からランダムで1枚だけ選ばれます。そのカードは「どれか1辺が+2」または「どれか1辺がAになり、別の1辺が1になる」のどちらかの変化を受けます。" },
-  { id: "little_1", name: "リトル★", short: "★1までのカードだけで対戦します。★デッキを使用し、他の追加ルールも適用されます。" },
-  { id: "little_2", name: "リトル★★", short: "★2までのカードだけで対戦します。★★デッキを使用し、他の追加ルールも適用されます。" },
-  { id: "little_3", name: "リトル★★★", short: "★3までのカードだけで対戦します。★★★デッキを使用し、他の追加ルールも適用されます。" },
   { id: "plus", name: "プラス", short: "接する辺の合計値が2辺以上同じなら対象カードを奪います。" },
   { id: "same", name: "セイム", short: "接する2辺以上の数字が同じなら対象カードを奪います。" },
   { id: "combo", name: "コンボ", short: "奪ったカードからさらに通常比較で連鎖します。" }
@@ -7733,13 +7730,9 @@ const RULE_NAME_BY_ID = Object.fromEntries(RULES.map((rule) => [rule.id, rule.na
 const CARD_TYPES = ["こくご", "さんすう", "りか", "しゃかい", "えいご"];
 const CARD_SIDES = ["up", "right", "down", "left"];
 const NORMAL_DECK_COUNT = 5;
-const LITTLE_DECKS = [
-  { index: 5, maxRarity: 1, label: "★デッキ", defaultName: "★デッキ" },
-  { index: 6, maxRarity: 2, label: "★★デッキ", defaultName: "★★デッキ" },
-  { index: 7, maxRarity: 3, label: "★★★デッキ", defaultName: "★★★デッキ" }
-];
-const TOTAL_DECK_COUNT = NORMAL_DECK_COUNT + LITTLE_DECKS.length;
-const LITTLE_RULE_IDS = ["little_1", "little_2", "little_3"];
+const LITTLE_DECKS = [];
+const TOTAL_DECK_COUNT = NORMAL_DECK_COUNT;
+const LITTLE_RULE_IDS = [];
 const SHOP_PRICES = { 1: 1000, 2: 5000, 3: 20000 };
 const SHOP_ITEMS = [
   {
@@ -8901,7 +8894,7 @@ function createInitialSave() {
   return {
     version: VERSION, activeDeckIndex:0, selectedDeckIndex:0, ownedCards,
     discoveredCards:Object.fromEntries(starterCards.map((card)=>[card.id,true])),
-    decks:[firstDeck,[],[],[],[],[...firstDeck],[...firstDeck],[...firstDeck]],
+    decks:[firstDeck,[],[],[],[]],
     deckNames:Array.from({length:TOTAL_DECK_COUNT},(_,index)=>getDeckDefaultName(index)), npcWins:{},
     money:1000, totalEarnedMoney:0, shopPurchaseTotal:0, hiramekiFragments:0, subjectPower:{こくご:0,さんすう:0,りか:0,しゃかい:0,えいご:0},
     awakenings:{}, unlockedKaijutsu:{}, deckKaijutsu:Array.from({length:TOTAL_DECK_COUNT},()=>"none"),
@@ -9465,14 +9458,6 @@ function escapeHtml(value) {
 function sanitizeRuleIds(ruleIds, preferredId = null) {
   let sanitized = [...new Set((ruleIds ?? []).filter((id) => RULE_NAME_BY_ID[id]))];
 
-  // リトル系は1種類だけ選択可能。ただし、他の追加ルールは併用する。
-  const preferredLittle = preferredId && isLittleRuleId(preferredId) ? preferredId : null;
-  const littleRules = sanitized.filter(isLittleRuleId);
-  if (littleRules.length > 1) {
-    const keep = preferredLittle && littleRules.includes(preferredLittle) ? preferredLittle : littleRules[0];
-    sanitized = sanitized.filter((id) => !isLittleRuleId(id) || id === keep);
-  }
-
   const removeConflict = (a, b) => {
     if (sanitized.includes(a) && sanitized.includes(b)) {
       const removeId = preferredId === a ? b : a;
@@ -9894,7 +9879,7 @@ function renderDeckKaijutsuSetting() {
     : "まだ取得しているひらめきスキルはありません。";
   const nextSkill = lockedSkills.sort((a, b) => a.unlockRate - b.unlockRate)[0];
   const nextText = nextSkill ? `<br><small>次の取得：${escapeHtml(nextSkill.name)}（図鑑${nextSkill.unlockRate}%）</small>` : "<br><small>すべてのひらめきスキルを取得済みです。</small>";
-  info.innerHTML = `<p>ひらめきスキルはデッキへ装備せず、NPC対戦中に取得済みのひらめきスキルから選んで使用します。</p><div class="kaijutsu-unlocked-list">${unlockedHtml}</div><small>図鑑コンプリート率 ${rate.toFixed(2)}% / 取得済み ${unlockedSkills.length}/${KAIJUTSU_SKILLS.length - 1}。一度取得したひらめきスキルは、カード追加でコンプ率が下がっても失われません。</small>${nextText}`;
+  info.innerHTML = `<div class="kaijutsu-unlocked-list">${unlockedHtml}</div><small>図鑑コンプリート率 ${rate.toFixed(2)}% / 取得済み ${unlockedSkills.length}/${KAIJUTSU_SKILLS.length - 1}。一度取得したひらめきスキルは、カード追加でコンプ率が下がっても失われません。</small>${nextText}`;
 }
 
 function renderDeckScreen() {
@@ -10029,8 +10014,22 @@ function renderOwnedCardList() {
 
 
 function renderCollectionBonuses() {
-  const box=$("collectionBonusList"); if(!box)return;
-  box.innerHTML=COLLECTIONS.map(col=>{const done=isCollectionComplete(col), claimed=Boolean(state.save.claimedCollections?.[col.name]);const got=col.cardIds.filter(id=>state.save.discoveredCards?.[id]).length;return `<div class="collection-bonus-card ${done?"complete":""}"><div><strong>${escapeHtml(col.name)}</strong> <span class="badge">${escapeHtml(col.subject)}</span></div><div>${got}/${col.cardIds.length}枚　報酬：${formatMoney(col.mpReward)} / かけら${col.fragmentReward} / ${escapeHtml(col.subject)}パワー${col.powerReward}</div><p>${escapeHtml(col.description)}</p><small>${claimed?"✓ 報酬受取済み":done?"完成！":"未完成"}</small></div>`;}).join("");
+  const box = $("collectionBonusList");
+  if (!box) return;
+
+  const unlockedCollections = COLLECTIONS.filter((col) => isCollectionComplete(col));
+  const count = $("collectionBonusUnlockedCount");
+  if (count) count.textContent = `（解放済み ${unlockedCollections.length}/${COLLECTIONS.length}）`;
+
+  if (!unlockedCollections.length) {
+    box.innerHTML = `<div class="collection-bonus-empty muted">まだ解放したコレクションボーナスはありません。</div>`;
+    return;
+  }
+
+  box.innerHTML = unlockedCollections.map((col) => {
+    const claimed = Boolean(state.save.claimedCollections?.[col.name]);
+    return `<div class="collection-bonus-card complete"><div><strong>${escapeHtml(col.name)}</strong> <span class="badge">${escapeHtml(col.subject)}</span></div><div>${col.cardIds.length}/${col.cardIds.length}枚　報酬：${formatMoney(col.mpReward)} / かけら${col.fragmentReward} / ${escapeHtml(col.subject)}パワー${col.powerReward}</div><p>${escapeHtml(col.description)}</p><small>${claimed ? "✓ 報酬受取済み" : "完成！"}</small></div>`;
+  }).join("");
 }
 
 function renderCollectionScreen() {

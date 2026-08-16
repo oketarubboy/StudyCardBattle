@@ -2997,3 +2997,12 @@ body .npc-card .badge.shura, body .danger-mode-button{background:linear-gradient
   font-size: 14px;
   line-height: 1.55;
 }
+
+
+/* v0.2.4: unlocked collection bonuses are collapsed by default */
+.collection-bonus-details{margin:1rem 0 1.2rem;border:1px solid #495069;border-radius:12px;background:#14182a;overflow:hidden}
+.collection-bonus-details>summary{cursor:pointer;padding:.85rem 1rem;font-weight:700;user-select:none;list-style-position:inside}
+.collection-bonus-details>summary:hover{background:rgba(255,255,255,.04)}
+.collection-bonus-details[open]>summary{border-bottom:1px solid #3b425a}
+.collection-bonus-details .collection-bonus-list{padding:.85rem;margin-bottom:0}
+.collection-bonus-empty{padding:.35rem .2rem}

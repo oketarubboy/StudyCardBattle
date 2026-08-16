@@ -280,7 +280,11 @@
               <option value="asc">昇順</option><option value="desc">降順</option>
             </select>
           </div>
-          <h3>コレクションボーナス</h3><div id="collectionBonusList" class="collection-bonus-list"></div><h3>カード図鑑</h3><div id="collectionGrid" class="collection-grid"></div>
+          <details id="collectionBonusDetails" class="collection-bonus-details">
+            <summary>コレクションボーナス <span id="collectionBonusUnlockedCount">（解放済み 0/50）</span></summary>
+            <div id="collectionBonusList" class="collection-bonus-list"></div>
+          </details>
+          <h3>カード図鑑</h3><div id="collectionGrid" class="collection-grid"></div>
         </div>
       </section>
 
@@ -316,7 +320,6 @@
             <div><strong>教科パワーダウン</strong><p>場に同じ属性のカードが2枚以上ある時、その属性の場のカードだけが弱体化されます。2枚なら-1、3枚なら-2です。手札は影響を受けません。</p></div>
             <div><strong>ミラー</strong><p>カードを場に出した瞬間、上下と左右の数字が入れ替わります。手札にある間は通常の数値です。</p></div>
             <div><strong>ワイルドカード</strong><p>対戦開始時、各プレイヤーの手札からランダムな1枚が「1辺+2」または「1辺A・別の1辺1」に変化します。</p></div>
-            <div><strong>リトル★ / リトル★★ / リトル★★★</strong><p>指定された★数までのカードで対戦します。対応する専用デッキを使用し、他の追加ルールも併用されます。</p></div>
             <div><strong>プラス</strong><p>隣接する辺の合計値が2辺以上同じ場合、その対象カードをひっくり返します。</p></div>
             <div><strong>セイム</strong><p>隣接する2辺以上の数字が同じ場合、その対象カードをひっくり返します。</p></div>
             <div><strong>コンボ</strong><p>プラスやセイムなどでひっくり返したカードを起点に、通常比較・セイム・プラスがさらに連鎖します。</p></div>
@@ -424,7 +427,7 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/pixi.js@7.4.2/dist/pixi.min.js"></script>
-  <script defer src="manabi-app.js?v=0.2.2"></script>
+  <script defer src="manabi-app.js?v=0.2.4"></script>
   <noscript><div class="startup-error">このゲームを遊ぶにはJavaScriptを有効にしてください。</div></noscript>
 </body>
 </html>
