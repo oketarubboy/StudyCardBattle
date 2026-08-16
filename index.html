@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>まなびカードバトル</title>
+  <meta name="theme-color" content="#15182b" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+    <header class="app-header">
+      <div>
+        <h1>まなびカードバトル</h1>
+      </div>
+      <button class="small-button ghost" id="backTitleBtn">タイトルへ</button>
+    </header>
+
+    <main>
+      <section id="screen-title" class="screen active">
+        <div class="title-card">
+          <h2>まなびカードバトル</h2>
+          <div class="wallet-line">まなびポイント：<strong data-money-display>0 MP</strong></div>
+          <div class="title-menu">
+            <button id="goBattle">対戦</button>
+            <button id="goDeck">デッキ</button>
+            <button id="goShop">ショップ</button>
+            <button id="goCardEnhance">学び成長</button>
+            <button id="goCollection">図鑑</button>
+            <button id="goRankings">ランキング</button>
+            <button id="goRules">ルール説明</button>
+            <button id="goSettings">設定</button>
+          </div>
+        </div>
+
+        <div class="version-box">
+          <span id="versionLabel">v0.2.0</span>
+          <button id="updateButton">最新版に更新</button>
+        </div>
+      </section>
+
+      <section id="screen-battle-select" class="screen">
+        <div class="panel battle-select-panel">
+          <h2>対戦モード選択</h2>
+          <p class="muted">NPCと対戦するか、部屋番号を使って別々のスマホでオンライン対戦します。</p>
+          <div class="title-menu battle-mode-menu">
+            <button id="goNpcBattle">NPC対戦</button>
+            <button id="goOnlineBattle">オンライン対戦</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="screen-battle-menu" class="screen">
+        <div class="panel">
+          <h2>対戦相手を選択</h2>
+          <p class="muted">対戦相手を選ぶと、追加ルールの設定または抽選画面に進みます。</p>
+          <div class="wallet-line">まなびポイント：<strong data-money-display>0 MP</strong></div>
+          <div class="npc-mode-switch" aria-label="通常モードと大人モードの切り替え">
+            <strong id="npcModeLabel">通常モード</strong>
+            <button id="npcModeToggle" type="button" class="danger-mode-button">大人モードに切り替え</button>
+          </div>
+          <div class="rule-panel">
+            <h3>追加ルール</h3>
+            <p class="muted">よわい相手は自由設定、ふつう/つよい相手は対戦前に自動抽選されます。</p>
+          </div>
+          <div class="npc-list-controls" aria-label="対戦相手の絞り込みと並び替え">
+            <label>難易度<select id="npcFilterDifficulty"><option value="all">すべて</option><option value="よわい">よわい</option><option value="ふつう">ふつう</option><option value="つよい">つよい</option><option value="大人モード">大人モード</option></select></label>
+            <label>勝利状況<select id="npcFilterWinStatus"><option value="all">すべて</option><option value="unwon">未勝利</option><option value="won">勝利済</option></select></label>
+            <label>属性<select id="npcFilterAttribute"><option value="all">すべて</option><option value="kokugo">こくご</option><option value="sansuu">さんすう</option><option value="rika">りか</option><option value="shakai">しゃかい</option><option value="eigo">えいご</option></select></label>
+            <label>並び替え<select id="npcSortField"><option value="number">番号順</option><option value="name">名前順</option><option value="difficulty">難易度順</option></select></label>
+            <label>順序<select id="npcSortOrder"><option value="asc">昇順</option><option value="desc">降順</option></select></label>
+          </div>
+          <div id="npcList" class="npc-list"></div>
+        </div>
+      </section>
+
+      <section id="screen-online-battle" class="screen">
+        <div class="panel online-panel">
+          <h2>オンライン対戦</h2>
+          <p class="muted">部屋番号制のオンライン対戦です。報酬・カード移動・MPの増減はありません。</p>
+          <div class="summary">
+            使用デッキ：<strong id="onlineActiveDeckLabel">デッキ1</strong><br>
+            ユーザー名：<strong id="onlineUserNameLabel">未設定</strong><br>
+            オンラインレート：<strong id="onlineRateLabel">1500</strong>
+          </div>
+          <div class="online-actions">
+            <button id="createOnlineRoom">部屋を作る</button>
+            <button id="randomOnlineMatch">ランダムマッチ</button>
+            <div class="join-room-row">
+              <input id="onlineRoomCode" class="search" placeholder="部屋番号を入力" maxlength="8" />
+              <button id="joinOnlineRoom">部屋に入る</button>
+            </div>
+          </div>
+          <div id="onlineBattleMessage" class="message"></div>
+        </div>
+      </section>
+
+      <section id="screen-battle" class="screen battle-screen">
+        <div class="battle-layout">
+          <div class="battle-main">
+            <div class="battle-hud">
+              <div>
+                <div id="battleNpcName" class="battle-title">NPC</div>
+                <div id="turnLabel" class="turn-label">現在のターン：プレイヤー</div>
+              </div>
+              <div id="scoreLabel" class="score-label">自分 5 - 5 相手</div>
+            </div>
+
+            <div class="opponent-area">
+              <div class="area-label">相手の手札</div>
+              <div id="npcHand" class="hand opponent-hand"></div>
+            </div>
+
+            <div id="pixiContainer" class="pixi-container"></div>
+
+            <div class="player-area">
+              <div class="area-label">自分の手札</div>
+              <div id="playerHand" class="hand player-hand"></div>
+            </div>
+
+            <div class="kaijutsu-battle-control kaijutsu-battle-control-below-hand">
+              <button id="useKaijutsuButton" type="button" class="small-button kaijutsu-button" disabled>ひらめきスキルを使う</button>
+              <small id="kaijutsuStatus" class="kaijutsu-status"></small>
+            </div>
+          </div>
+
+          <aside class="battle-side">
+            <h3>ログ</h3>
+            <div id="battleLog" class="battle-log"></div>
+            <button id="giveUpButton" class="danger">対戦をやめる</button>
+          </aside>
+        </div>
+      </section>
+
+
+      <section id="screen-card-enhance" class="screen">
+        <div class="panel enhancement-panel">
+          <h2>学び成長</h2>
+          <div class="enhancement-summary">ひらめきのかけら：<strong id="hiramekiFragmentsCount">0</strong></div><div id="subjectPowerSummary" class="enhancement-summary"></div>
+          <p class="muted">学び成長の強化値はNPC対戦でのみ有効です。オンライン対戦・ランダムマッチでは元の数値を使用します。</p>
+          <div class="enhancement-menu" role="tablist" aria-label="学び成長メニュー">
+            <button id="showAwakeningMenu" type="button" class="active">学び成長</button>
+            <button id="showResidueMenu" type="button" class="ghost">ひらめきのかけら</button>
+          </div>
+
+          <section id="awakeningSection" class="enhancement-section">
+            <p class="muted">全カードを、同一カード・まなびポイント・ひらめきのかけら・教科パワーを使ってマスターまで成長できます。成長で得た数値は後から割り振れます。</p>
+            <div class="enhancement-layout">
+              <div>
+                <h3>成長するカード</h3>
+                <div id="awakeningCardList" class="enhancement-card-list"></div>
+              </div>
+              <div>
+                <h3>学び成長</h3>
+                <div id="awakeningDetail" class="awakening-detail muted">カードを選択してください。</div>
+              </div>
+            </div>
+          </section>
+
+          <section id="residueSection" class="enhancement-section hidden">
+            <p class="muted">重複カードをひらめきのかけらへ変換します。★4・★5はマスターまで学び成長済みの場合のみ変換できます。各カードは最低1枚、またはデッキで必要な枚数を残します。</p>
+            <div class="residue-bulk-actions">
+              <button id="convertAllStar1" type="button">★1の重複カードをすべてひらめきのかけら化</button>
+              <button id="convertAllStar2" type="button">★2以下の重複カードをすべてひらめきのかけら化</button>
+              <button id="convertAllStar3" type="button">★3以下の重複カードをすべてひらめきのかけら化</button>
+            </div>
+            <div id="residueMessage" class="message"></div>
+            <div id="residueCardList" class="residue-card-list"></div>
+          </section>
+        </div>
+      </section>
+
+      <section id="screen-shop" class="screen">
+        <div class="panel">
+          <h2>ショップ</h2>
+          <div class="shop-header">
+            <div>
+              <div class="wallet-line">まなびポイント：<strong data-money-display>0 MP</strong></div>
+              <div id="shopGradeInfo" class="shop-grade-info muted"></div>
+            </div>
+            <button id="refreshShop" class="ghost">品揃えを更新</button>
+          </div>
+          <div id="shopMessage" class="message"></div>
+          <section class="shop-items-section">
+            <h3>常設アイテム</h3>
+            <p class="muted">購入する個数を選択できます。各アイテムは最大5個まで所持できます。</p>
+            <div id="shopItemList" class="shop-item-list"></div>
+          </section>
+          <div class="shop-layout">
+            <section>
+              <h3>購入</h3>
+              <p class="muted">販売カードは★1～★3からランダムで3枚並びます。3枚すべて購入すると無料で更新されます。</p>
+              <div id="shopStockList" class="shop-list"></div>
+            </section>
+            <section>
+              <h3>売却</h3>
+              <p class="muted">売却するとひらめきのかけらを獲得できます。★4・★5はマスターまで学び成長したカードのみ売却できます。</p>
+              <div id="shopSellList" class="shop-list"></div>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <section id="screen-deck" class="screen">
+        <div class="panel">
+          <h2>デッキ</h2>
+          <p class="muted">1つのデッキは5枚です。★5は1枚まで、★4は2枚まで、★3以下は無制限です。</p>
+          <div class="deck-tabs" id="deckTabs"></div>
+          <div class="deck-layout">
+            <div>
+              <h3>現在のデッキ</h3>
+              <label class="deck-name-row">
+                <span>デッキ名</span>
+                <input id="deckNameInput" class="deck-name-input" maxlength="20" placeholder="デッキ名" />
+              </label>
+              <div class="deck-kaijutsu-setting">
+                <strong>ひらめきスキル</strong>
+                <div id="deckKaijutsuInfo" class="muted"></div>
+              </div>
+              <div id="currentDeck" class="deck-list"></div>
+              <div class="deck-actions">
+                <button id="setActiveDeck">このデッキを使用</button>
+                <button id="clearDeck" class="ghost">クリア</button>
+              </div>
+              <div id="deckMessage" class="message"></div>
+            </div>
+            <div>
+              <h3>手持ちカード</h3>
+              <div class="deck-filter-row">
+                <input id="cardSearch" class="search" placeholder="カード名で検索" />
+                <select id="deckRarityFilter" class="sort-select" aria-label="★で絞り込み">
+                  <option value="all">★すべて</option><option value="1">★1</option><option value="2">★2</option><option value="3">★3</option><option value="4">★4</option><option value="5">★5</option>
+                </select>
+                <select id="deckAttributeFilter" class="sort-select" aria-label="属性で絞り込み">
+                  <option value="all">属性すべて</option><option value="kokugo">こくご</option><option value="sansuu">さんすう</option><option value="rika">りか</option><option value="shakai">しゃかい</option><option value="eigo">えいご</option>
+                </select>
+                <select id="deckSortField" class="sort-select" aria-label="並び替え項目">
+                  <option value="name">名前順</option>
+                  <option value="rarity">レアリティ順</option>
+                  <option value="right">右の強さ順</option>
+                  <option value="up">上の強さ順</option>
+                  <option value="left">左の強さ順</option>
+                  <option value="down">下の強さ順</option>
+                  <option value="power">数字の総合強さ順</option>
+                </select>
+                <select id="deckSortOrder" class="sort-select" aria-label="昇順・降順">
+                  <option value="asc">昇順</option>
+                  <option value="desc">降順</option>
+                </select>
+              </div>
+              <div class="deck-view-row" aria-label="手持ちカード表示方法">
+                <span>表示方法</span>
+                <button id="ownedViewVertical" type="button" class="small-button">縦表示</button>
+                <button id="ownedViewHorizontal" type="button" class="small-button ghost">横表示</button>
+              </div>
+              <div id="ownedCardList" class="card-list owned-card-list view-vertical"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="screen-collection" class="screen">
+        <div class="panel">
+          <h2>図鑑</h2>
+          <p class="muted">取得したカードを確認できます。未取得カードは「???」で表示されます。</p>
+          <div id="collectionSummary" class="summary"></div>
+          <div class="collection-filter-row">
+            <input id="collectionSearch" class="search" placeholder="カード名で検索" />
+            <select id="collectionRarityFilter" class="sort-select" aria-label="★で絞り込み">
+              <option value="all">★すべて</option><option value="1">★1</option><option value="2">★2</option><option value="3">★3</option><option value="4">★4</option><option value="5">★5</option>
+            </select>
+            <select id="collectionAttributeFilter" class="sort-select" aria-label="属性で絞り込み">
+              <option value="all">属性すべて</option><option value="kokugo">こくご</option><option value="sansuu">さんすう</option><option value="rika">りか</option><option value="shakai">しゃかい</option><option value="eigo">えいご</option>
+            </select>
+            <select id="collectionSortField" class="sort-select" aria-label="並び替え">
+              <option value="number">番号順</option><option value="name">名前順</option><option value="rarity">レアリティ順</option>
+            </select>
+            <select id="collectionSortOrder" class="sort-select" aria-label="昇順・降順">
+              <option value="asc">昇順</option><option value="desc">降順</option>
+            </select>
+          </div>
+          <h3>コレクションボーナス</h3><div id="collectionBonusList" class="collection-bonus-list"></div><h3>カード図鑑</h3><div id="collectionGrid" class="collection-grid"></div>
+        </div>
+      </section>
+
+
+
+      <section id="screen-rankings" class="screen">
+        <div class="panel rankings-panel">
+          <h2>ランキング</h2>
+          <p class="muted">Firebaseに保存されたオンライン対戦レート、図鑑コンプリート率、累計獲得MPランキングを表示します。</p>
+          <div id="rankingContent" class="ranking-content"></div>
+        </div>
+      </section>
+
+      <section id="screen-rules" class="screen">
+        <div class="panel rules-panel">
+          <h2>ルール説明</h2>
+          <h3>基本ルール</h3>
+          <p>3×3の盤面に、自分と相手が交互にカードを置きます。カードには上・右・下・左の4つの数字があり、置いたカードと隣接する相手カードの数字を比べます。</p>
+          <p>カードの数字は <strong>1〜10</strong> で、画面上では <strong>10をA</strong> と表示します。通常の強さは <strong>1 &lt; 2 &lt; 3 &lt; 4 &lt; 5 &lt; 6 &lt; 7 &lt; 8 &lt; 9 &lt; A</strong> です。</p>
+          <p>カードには <strong>こくご（赤）・さんすう（青）・りか（黄）・しゃかい（緑）・えいご（紫）</strong> の5教科属性があります。属性はカード枠の色で判別できます。</p>
+          <p>通常ルールでは、置いたカード側の数字が相手カード側の数字より大きい場合、その相手カードを自分の色に変えられます。9枚すべて置き終わった時点で、自分の色のカードと残り手札を合計した点数が多い方の勝ちです。</p>
+          <p>勝利するとMPを獲得し、抽選結果に応じて相手カードやレアカードを獲得できます。★5カードはレアチャンスのみで入手できます。</p>
+
+          <h3>追加ルール</h3>
+          <div class="rules-grid">
+            <div><strong>オーダー</strong><p>デッキの左から順番にしかカードを出せません。</p></div>
+            <div><strong>カオス</strong><p>場に出すカードがランダムに指定されます。オーダーとは同時に選べません。</p></div>
+            <div><strong>オールオープン</strong><p>お互いの手札がすべて見えている状態で開始します。</p></div>
+            <div><strong>スワップ</strong><p>開始前にお互いの手札からランダムに1枚ずつ交換します。対戦後は元に戻ります。</p></div>
+            <div><strong>リバース</strong><p>数字の強さが逆になります。Aが最弱、1が最強になります。エースキラーとは同時に選べません。</p></div>
+            <div><strong>エースキラー</strong><p>1だけがAに勝てます。ただし1は2〜9には勝てません。</p></div>
+            <div><strong>教科パワーアップ</strong><p>場に同じ属性のカードが2枚以上ある時、その属性の場のカードだけが強化されます。2枚なら+1、3枚なら+2です。手札は影響を受けません。</p></div>
+            <div><strong>教科パワーダウン</strong><p>場に同じ属性のカードが2枚以上ある時、その属性の場のカードだけが弱体化されます。2枚なら-1、3枚なら-2です。手札は影響を受けません。</p></div>
+            <div><strong>ミラー</strong><p>カードを場に出した瞬間、上下と左右の数字が入れ替わります。手札にある間は通常の数値です。</p></div>
+            <div><strong>ワイルドカード</strong><p>対戦開始時、各プレイヤーの手札からランダムな1枚が「1辺+2」または「1辺A・別の1辺1」に変化します。</p></div>
+            <div><strong>リトル★ / リトル★★ / リトル★★★</strong><p>指定された★数までのカードで対戦します。対応する専用デッキを使用し、他の追加ルールも併用されます。</p></div>
+            <div><strong>プラス</strong><p>隣接する辺の合計値が2辺以上同じ場合、その対象カードをひっくり返します。</p></div>
+            <div><strong>セイム</strong><p>隣接する2辺以上の数字が同じ場合、その対象カードをひっくり返します。</p></div>
+            <div><strong>コンボ</strong><p>プラスやセイムなどでひっくり返したカードを起点に、通常比較・セイム・プラスがさらに連鎖します。</p></div>
+          </div>
+
+          <h3>フィールド効果</h3>
+          <div class="rules-grid">
+            <div><strong>数値フィールド</strong><p>難易度つよい・大人では、ランダムな1〜3マスに-2・-1・+1・+2が発生します。そのマスに置いたカードの4辺すべてへ加算・減算されます。</p></div>
+            <div><strong>ロック</strong><p>難易度ふつう以上では0〜1マスが隠しロックマスになります。置くまで場所は分からず、ロックされたカードは以後ひっくり返りません。</p></div>
+            <div><strong>処理順</strong><p>カード本来の数値→学び成長→大人強化→ワイルドカード→ひらめきスキル→ミラー・回転→フィールド効果→タイプ補正→1〜Aへ補正→通常比較・セイム・プラス・コンボの順です。</p></div>
+          </div>
+
+          <h3>ひらめきスキル</h3>
+          <p>図鑑コンプリート率で取得します。デッキへの装備は不要で、NPC対戦中に取得済みのひらめきスキルから選択して使用できます。通常モードの学びマスター初勝利前は1対戦1回、初勝利後は1対戦2回まで使用できます。ただし、同じひらめきスキルを同じ対戦で2回使うことはできません。敵NPCは使用せず、オンライン対戦・ランダムマッチでは無効です。一度取得したひらめきスキルは、カード追加でコンプ率が下がっても失われません。</p>
+          <div class="rules-grid">
+            <div><strong>パワーアップ（20%）</strong><p>次に出すカードの選んだ1辺を、その対戦中だけ+1します。</p></div>
+            <div><strong>みぎ回転（30%）</strong><p>次に出すカードを右へ90度回転して配置します。上→右、右→下、下→左、左→上へ移動します。</p></div>
+            <div><strong>ひだり回転（30%）</strong><p>次に出すカードを左へ90度回転して配置します。上→左、左→下、下→右、右→上へ移動します。</p></div>
+            <div><strong>さかさま回転（40%）</strong><p>次に出すカードを180度回転して配置します。上と下、右と左が入れ替わります。</p></div>
+            <div><strong>効果クリア（50%）</strong><p>空いているマスの-2・-1・+1・+2を1つ無効化します。ロックマスとカード配置済みマスには使えません。</p></div>
+            <div><strong>効果おひっこし（55%）</strong><p>カードが置かれていないフィールド効果を1つ選び、効果のない別の空きマスへ移動します。ロックマスは対象外です。</p></div>
+            <div><strong>得意と苦手（60%）</strong><p>次に出すカードの選んだ1辺を+2し、別のランダムな1辺を-2します。</p></div>
+            <div><strong>おうえんパワー（65%）</strong><p>相手色になっている場のカードを1枚選び、好きな1辺を+1します。所有権は変わりません。</p></div>
+            <div><strong>大逆転（70%）</strong><p>次に出すカードの最小の1辺をAにし、別の最大の1辺を1にします。同値の候補はランダムです。</p></div>
+          </div>
+
+          <h3>学び成長と大人モード</h3>
+          <div class="rules-grid">
+            <div><strong>学び成長</strong><p>★4・★5の重複カードとひらめきのかけらを消費し、マスターまで成長できます。成長ごとに好きな1辺へ+1を割り振れます。オンライン対戦では無効です。</p></div>
+            <div><strong>ひらめきのかけら</strong><p>★3以下の重複カードを素材化して獲得します。★1は1、★2は5、★3は20のかけらになります。</p></div>
+            <div><strong>大人モード</strong><p>通常モードの学びマスターへの初勝利後に解放されます。大人モードの対戦相手カードはレアリティ別に強化され、専用AIで2手以上先まで読みます。</p></div>
+            <div><strong>圧勝ボーナス</strong><p>プレイヤーの最終スコアが8または9で勝利すると、レアチャンスが確定します。</p></div>
+          </div>
+
+          <h3>対戦前アイテムと挑戦料</h3>
+          <div class="rules-grid">
+            <div><strong>ヒント虫めがね</strong><p>追加ルール決定時にONにするとロックマスを事前表示します。ロックマスがない対戦では消費されません。</p></div>
+            <div><strong>ラッキーおまもり</strong><p>追加ルール決定時にONにすると、その対戦のレアチャンス率が2倍になります。</p></div>
+            <div><strong>挑戦料と再抽選</strong><p>挑戦料は追加ルール確定時に支払います。ふつう以上では挑戦料の半額で追加ルールを再抽選できます。敗北・棄権時は返金されません。</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="screen-settings" class="screen">
+        <div class="panel settings-panel">
+          <h2>設定</h2>
+          <label class="toggle-row">
+            <span>
+              <strong>エフェクト</strong>
+              <small>カード配置・反転・勝利時の演出を表示します。</small>
+            </span>
+            <input id="effectToggle" type="checkbox" />
+          </label>
+          <label class="toggle-row">
+            <span>
+              <strong>対戦カードの詳細ポップアップ</strong>
+              <small>対戦画面でカードをタップした時に、拡大カードをポップアップ表示します。</small>
+            </span>
+            <input id="battleCardPopupToggle" type="checkbox" />
+          </label>
+
+          <div class="settings-card">
+            <h3>オンライン対戦・ランキング</h3>
+            <p class="muted">ランキングに表示するユーザー名を設定します。同じユーザー名は登録できません。</p>
+            <div class="summary">
+              現在のユーザー名：<strong id="settingsUserNameLabel">未設定</strong><br>
+              オンラインレート：<strong id="settingsRateLabel">1500</strong>
+            </div>
+            <div class="username-row">
+              <input id="settingUserName" class="search" placeholder="ランキング用ユーザー名" maxlength="16" />
+              <button id="checkUserName">使用可能チェック</button>
+              <button id="saveUserName">保存</button>
+            </div>
+            <div class="settings-buttons">
+              <button id="syncRankings" class="ghost">ランキング情報を更新</button>
+            </div>
+            <div id="userNameCheckResult" class="message"></div>
+          </div>
+          <div class="settings-buttons">
+            <button id="exportSave">セーブデータを書き出し</button>
+            <button id="importSave">セーブデータを読み込み</button>
+            <button id="resetSave" class="danger">初期化</button>
+          </div>
+          <textarea id="saveText" placeholder="エクスポート/インポート用データ" spellcheck="false"></textarea>
+
+          <div class="settings-card debug-settings-card">
+            <h3>デバッグ</h3>
+            <div class="debug-command-row">
+              <input id="debugPassword" type="password" class="search" placeholder="パスワード" autocomplete="off" />
+              <button id="debugMoneyButton" type="button">デバッグ</button>
+            </div>
+            <div id="debugMessage" class="message" aria-live="polite"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="modal" class="modal hidden">
+    <div class="modal-content">
+      <h2 id="modalTitle">報酬</h2>
+      <div id="modalBody"></div>
+      <div id="modalActions" class="modal-actions"></div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/pixi.js@7.4.2/dist/pixi.min.js"></script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
