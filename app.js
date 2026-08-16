@@ -3128,28 +3128,60 @@ function createPixiCard(card, owner, x, y, boardIndex = null) {
     container.addChild(flameFrame);
   }
 
-  const artMask = new PIXI.Graphics();
-  artMask.beginFill(0xffffff, 1);
-  artMask.drawRoundedRect(8, 8, 100, 100, 12);
-  artMask.endFill();
-  container.addChild(artMask);
-
-  const art = PIXI.Sprite.from(getCardImagePath(card));
-  art.x = 8;
-  art.y = 8;
-  art.width = 100;
-  art.height = 100;
-  art.alpha = 0.96;
-  art.mask = artMask;
-  container.addChild(art);
-
-  const vignette = new PIXI.Graphics();
-  vignette.beginFill(0x000000, 0.18);
-  vignette.drawRoundedRect(8, 8, 100, 100, 12);
-  vignette.endFill();
-  container.addChild(vignette);
-
+  // カード画像が未設定の開発版でも盤面描画を止めない。
+  // PIXI.Sprite.from("") は実行時例外になり、配置位置より後ろのマスが
+  // 描画されなくなるため、画像がない場合は教科色の仮アートを直接描画する。
   const typeMeta = getCardTypeMeta(card);
+  const imagePath = getCardImagePath(card);
+  if (imagePath) {
+    const artMask = new PIXI.Graphics();
+    artMask.beginFill(0xffffff, 1);
+    artMask.drawRoundedRect(8, 8, 100, 100, 12);
+    artMask.endFill();
+    container.addChild(artMask);
+
+    const art = PIXI.Sprite.from(imagePath);
+    art.x = 8;
+    art.y = 8;
+    art.width = 100;
+    art.height = 100;
+    art.alpha = 0.96;
+    art.mask = artMask;
+    container.addChild(art);
+
+    const vignette = new PIXI.Graphics();
+    vignette.beginFill(0x000000, 0.18);
+    vignette.drawRoundedRect(8, 8, 100, 100, 12);
+    vignette.endFill();
+    container.addChild(vignette);
+  } else {
+    const placeholderColor = PIXI.utils.string2hex(typeMeta.color);
+    const placeholder = new PIXI.Graphics();
+    placeholder.beginFill(placeholderColor, 0.48);
+    placeholder.drawRoundedRect(8, 8, 100, 100, 12);
+    placeholder.endFill();
+    container.addChild(placeholder);
+
+    const subjectIcon = {
+      "こくご": "📖",
+      "さんすう": "➗",
+      "りか": "🔬",
+      "しゃかい": "🗾",
+      "えいご": "ABC"
+    }[getCardType(card)] ?? "★";
+    const placeholderText = new PIXI.Text(subjectIcon, {
+      fontFamily: "Arial",
+      fontSize: subjectIcon === "ABC" ? 22 : 30,
+      fontWeight: "bold",
+      fill: 0xffffff,
+      align: "center"
+    });
+    placeholderText.anchor.set(0.5);
+    placeholderText.x = 58;
+    placeholderText.y = 58;
+    container.addChild(placeholderText);
+  }
+
   const typeFrame = new PIXI.Graphics();
   typeFrame.lineStyle(3, PIXI.utils.string2hex(typeMeta.color), 0.95);
   typeFrame.drawRoundedRect(8, 8, 100, 100, 12);
