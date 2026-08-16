@@ -1259,7 +1259,9 @@ function sideBeats(attackerValue, defenderValue, battle = state.battle) {
   return attackerValue > defenderValue;
 }
 
-function getCardImagePath(card) { return ""; }
+function getCardImagePath(card) {
+  return card && card.id ? `assets/cards/${card.id}.png` : "";
+}
 
 function cardArtHtml(card) {
   const meta = getCardTypeMeta(card);
